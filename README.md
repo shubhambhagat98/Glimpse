@@ -13,8 +13,8 @@ This prompted me to devise a method for creating an AI-powered voice-activated N
    Link: https://alan.app/
    <br/>
 
-3. **NewsAPI** - This API allows users to Locate articles and breaking news headlines from news sources and blogs across the web.
-   Link: https://newsapi.org/
+3. **NewsCatcherAPI** - This API allows users to Locate articles and breaking news headlines from news sources and blogs across the web.
+   Link: https://newscatcherapi.com/
 
 ### Planned Output
 
