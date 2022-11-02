@@ -1,9 +1,10 @@
 import {StyleSheet, Text, View, TextInput} from 'react-native';
-import React from 'react';
+import React, {useRef} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {elevation} from '../../styles/styles';
 import {useStore} from '../../store/Store';
 import {Categories} from '../categories/Categories';
+import {Sources} from './Sources';
 
 const initialCategory = {
   id: 0,
@@ -16,36 +17,70 @@ const getMatchedCategory = input => {
   );
 };
 
+const getSourceIndex = input => {
+  const newInput = input.toLowerCase().replace(/ /g, '');
+  return Sources.findIndex(s => s.toLowerCase().split('.')[0] === newInput);
+};
+
+const getMatchedSource = input => {
+  const index = getSourceIndex(input);
+  if (index === -1) {
+    return null;
+  } else {
+    return Sources[index];
+  }
+};
+
 export const Search = () => {
   const keyword = useStore(state => state.keyword);
   const setKeyword = useStore(state => state.setKeyword);
   const setActiveCategory = useStore(state => state.setActiveCategory);
 
-  const setKeywordInStore = () => {
+  const inputRef = useRef();
+
+  const searchNewshandler = () => {
+    if (!keyword) {
+      console.log('do nothing');
+      return;
+    }
+
+    inputRef.current.clear();
+
     const matchedCategory = getMatchedCategory(keyword);
-    if (matchedCategory === null) {
-      setActiveCategory(initialCategory);
-    } else {
+    if (matchedCategory !== null) {
       setActiveCategory({
         id: matchedCategory.id,
         header: matchedCategory.header,
       });
+      console.log('search by category'); // search by category
+    } else {
+      const matchedSource = getMatchedSource(keyword);
+
+      if (matchedSource !== null) {
+        setActiveCategory(initialCategory);
+        console.log('Macthed Sources: ', matchedSource);
+        console.log('search by source'); // search by source
+      } else {
+        console.log('search by keyword'); //search by keyword
+        setActiveCategory(initialCategory);
+      }
     }
   };
 
   return (
     <View style={[styles.container, styles.elevation]}>
       <TextInput
+        ref={inputRef}
         autoCorrect={false}
         style={styles.input}
         placeholder="Keywords..."
         onChangeText={text => {
           setKeyword(text);
         }}
-        onEndEditing={setKeywordInStore}
+        onEndEditing={searchNewshandler}
         value={keyword}
       />
-      <Icon onPress={setKeywordInStore} name="search" size={25} />
+      <Icon onPress={searchNewshandler} name="search" size={25} />
     </View>
   );
 };
