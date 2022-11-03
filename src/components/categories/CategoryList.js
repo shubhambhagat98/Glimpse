@@ -4,7 +4,7 @@ import {useStore} from '../../store/Store';
 import {Categories} from './Categories';
 import {CategoryItem} from './CategoryItem';
 
-export const CategoryList = () => {
+export const CategoryList = ({fetchNewsData}) => {
   const activeCategory = useStore(state => state.activeCategory);
   const setActiveCategory = useStore(state => state.setActiveCategory);
   const setKeyword = useStore(state => state.setKeyword);
@@ -31,6 +31,22 @@ export const CategoryList = () => {
     };
     setActiveCategory(activeCategory);
     setKeyword('');
+
+    let paramObj;
+
+    if (activeCategory.header === 'all') {
+      paramObj = {
+        when: '24h',
+      };
+    } else {
+      paramObj = {
+        when: '24h',
+        topic: `${activeCategory.header}`,
+      };
+    }
+
+    let url = '/latest_headlines';
+    fetchNewsData(url, paramObj);
   };
 
   const renderItem = ({item: {id, header, imageSource}}) => {
@@ -50,14 +66,26 @@ export const CategoryList = () => {
   return (
     <FlatList
       ref={categoryListRef}
-      style={{flexGrow: 0}}
+      style={styles.categoryList}
       KeyExtrator={keyExtractor}
       data={Categories}
       renderItem={renderItem}
       horizontal
       showsHorizontalScrollIndicator={false}
+      initialScrollIndex={activeCategoryId}
+      getItemLayout={(_, index) => ({
+        length: 75 + 30, //  WIDTH + (MARGIN_HORIZONTAL * 2)
+        offset: (75 + 30) * (index - 1), //  ( WIDTH + (MARGIN_HORIZONTAL*2) ) * (index-1)
+        index,
+      })}
     />
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  categoryList: {
+    height: '22.5%',
+    flexGrow: 0,
+    // backgroundColor: '#fff',
+  },
+});

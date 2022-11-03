@@ -31,7 +31,7 @@ const getMatchedSource = input => {
   }
 };
 
-export const Search = () => {
+export const Search = ({fetchNewsData}) => {
   const keyword = useStore(state => state.keyword);
   const setKeyword = useStore(state => state.setKeyword);
   const setActiveCategory = useStore(state => state.setActiveCategory);
@@ -53,6 +53,12 @@ export const Search = () => {
         header: matchedCategory.header,
       });
       console.log('search by category'); // search by category
+      let paramObj = {
+        when: '24h',
+        topic: `${matchedCategory.header.toLowerCase()}`,
+      };
+      let url = '/latest_headlines';
+      fetchNewsData(url, paramObj);
     } else {
       const matchedSource = getMatchedSource(keyword);
 
@@ -60,9 +66,20 @@ export const Search = () => {
         setActiveCategory(initialCategory);
         console.log('Macthed Sources: ', matchedSource);
         console.log('search by source'); // search by source
+        let paramObj = {
+          when: '24h',
+          sources: `${matchedSource}`,
+        };
+        let url = '/latest_headlines';
+        fetchNewsData(url, paramObj);
       } else {
         console.log('search by keyword'); //search by keyword
         setActiveCategory(initialCategory);
+        let paramObj = {
+          q: `"${keyword}"`,
+        };
+        let url = '/search';
+        fetchNewsData(url, paramObj);
       }
     }
   };

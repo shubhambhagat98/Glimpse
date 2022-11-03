@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, FlatList} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import * as RootNavigation from '../utils/RootNavigation';
@@ -7,6 +7,8 @@ import {NativeEventEmitter, NativeModules} from 'react-native';
 import {Search} from '../components/SearchBar/Search';
 import {CategoryList} from '../components/categories/CategoryList';
 import {useStore} from '../store/Store';
+import newsList from '../mock/articles.json';
+import {newsAPI} from '../api/Api';
 
 const {AlanManager, AlanEventEmitter} = NativeModules;
 const alanEventEmitter = new NativeEventEmitter(AlanEventEmitter);
@@ -80,6 +82,9 @@ export const HomeScreen = ({
       }
     });
 
+    //fetch initial latest headlines
+    // fetchNewsData('/latest_headlines', {when: '24h'});
+
     return () => {
       alanEventEmitter.removeAllListeners('onCommand');
       alanEventEmitter.removeAllListeners('onButtonState');
@@ -101,6 +106,21 @@ export const HomeScreen = ({
     );
   };
 
+  const sendNewsArticlesToAlan = articles => {
+    // console.log("inside call project api ==>", index);
+    AlanManager.callProjectApi(
+      'setSavedArticles',
+      {articles: articles},
+      (error, result) => {
+        if (error) {
+          console.error(error);
+        } else {
+          console.log(result);
+        }
+      },
+    );
+  };
+
   const setVisualState = () => {
     // console.log('inside set visual state');
     AlanManager.setVisualState({screen: 'HomeScreen'});
@@ -111,7 +131,18 @@ export const HomeScreen = ({
     AlanManager.deactivate();
   };
 
+  const isAlanActive = () => {
+    return AlanManager.isActive((error, result) => {
+      if (error) {
+        console.error(error);
+      } else {
+        console.log(result);
+      }
+    });
+  };
+
   const playTextHandler = input => {
+    !isAlanActive() && AlanManager.activate();
     AlanManager.playText(input);
   };
 
@@ -146,12 +177,62 @@ export const HomeScreen = ({
     });
   };
 
+  const fetchNewsData = (url, paramObj) => {
+    newsAPI
+      .get(url, {
+        params: {
+          countries: 'US',
+          lang: 'en',
+          page: 1,
+          ...paramObj,
+        },
+      })
+      .then(response => {
+        let data = response.data;
+        let articles = data.articles ? data.articles : null;
+        if (articles === null) {
+          playTextHandler('Sorry, please try searching for something else.');
+          return;
+        }
+
+        //set articles in APP
+        setNewsArticles(articles);
+        setActiveArticle(-1);
+
+        // send articles to Alan
+        sendNewsArticlesToAlan(articles);
+        console.log(articles[0]);
+      })
+      .catch(error => {
+        console.log(error.response);
+        playTextHandler('Could not get news articles information');
+      });
+  };
+
+  const renderItem = ({item: {title, published_date, media, rights}}) => {
+    return (
+      <View style={styles.newsCard}>
+        <Text>
+          {title} {rights}
+        </Text>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
-      <Search />
-      <CategoryList />
-      <Text>active category: {activeCategory.header} </Text>
+      <Search fetchNewsData={fetchNewsData} />
+      <CategoryList fetchNewsData={fetchNewsData} />
+      <FlatList
+        data={newsList}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => index.toString()}
+        showsVerticalScrollIndicator={false}
+      />
+
+      {/* <Text>active category: {activeCategory.header} </Text>
       <Text>search keyword: {keyword}</Text>
+      <Text>article length: {newsArticles.length}</Text> */}
     </View>
   );
 };
@@ -162,5 +243,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     // alignItems: 'center',
     // justifyContent: 'center',
+  },
+
+  newsCard: {
+    height: 100,
+    marginVertical: 15,
   },
 });
