@@ -5,6 +5,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {navigationRef} from './src/utils/RootNavigation';
 import {HomeScreen} from './src/screens/HomeScreen';
 import {ArticleDetails} from './src/screens/ArticleDetails';
+import {ArticleWebView} from './src/screens/ArticleWebView';
+import {ALAN_KEY} from '@env';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -23,12 +25,9 @@ const App = () => {
         }}>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="ArticleDetails" component={ArticleDetails} />
+        <Stack.Screen name="ArticleWebView" component={ArticleWebView} />
       </Stack.Navigator>
-      <AlanView
-        projectid={
-          '180c557ece62e952a5feb248f0c9bfa22e956eca572e1d8b807a3e2338fdd0dc/stage'
-        }
-      />
+      <AlanView projectid={ALAN_KEY} />
     </NavigationContainer>
   );
 };

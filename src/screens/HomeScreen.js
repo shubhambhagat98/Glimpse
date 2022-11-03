@@ -11,7 +11,10 @@ import {useStore} from '../store/Store';
 const {AlanManager, AlanEventEmitter} = NativeModules;
 const alanEventEmitter = new NativeEventEmitter(AlanEventEmitter);
 
-export const HomeScreen = ({navigation: {navigate}, route: {params}}) => {
+export const HomeScreen = ({
+  navigation: {navigate, popToTop},
+  route: {params},
+}) => {
   const [newsArticles, setNewsArticles] = useState([]);
   const [activeArticle, setActiveArticle] = useState(-1);
   const [buttonState, setButtonState] = useState(null);
@@ -47,11 +50,21 @@ export const HomeScreen = ({navigation: {navigate}, route: {params}}) => {
         case 'openArticleDetails':
           let parsedNumber = getParsedNumber(data.number, data.articles.length);
           if (parsedNumber !== -1) {
-            openArticleDetails(parsedNumber, data.articles[parsedNumber - 1]);
+            openArticleDetails(
+              parsedNumber - 1,
+              data.articles[parsedNumber - 1],
+            );
           }
+          break;
+        case 'openArticleWebView':
+          playTextHandler('Opening');
+          openArticleWebView(data.number, data.article);
           break;
         case 'goBack':
           RootNavigation.goBack();
+          break;
+        case 'goBackToHomeScreen':
+          popToTop();
           break;
         case 'stop':
           deactivateAlan();
@@ -90,7 +103,7 @@ export const HomeScreen = ({navigation: {navigate}, route: {params}}) => {
 
   const setVisualState = () => {
     // console.log('inside set visual state');
-    AlanManager.setVisualState({screen: 'Homescreen'});
+    AlanManager.setVisualState({screen: 'HomeScreen'});
     setNotInitialLoad(true);
   };
 
@@ -119,10 +132,17 @@ export const HomeScreen = ({navigation: {navigate}, route: {params}}) => {
     }
   };
 
-  const openArticleDetails = (number, article) => {
+  const openArticleDetails = (index, article) => {
     navigate('ArticleDetails', {
       article,
-      number,
+      index,
+    });
+  };
+
+  const openArticleWebView = (index, article) => {
+    navigate('ArticleWebView', {
+      index,
+      article,
     });
   };
 

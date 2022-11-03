@@ -1,7 +1,6 @@
 import {StyleSheet, Text, View, Button} from 'react-native';
 import React from 'react';
 import {useEffect} from 'react';
-
 import {NativeModules} from 'react-native';
 const {AlanManager} = NativeModules;
 
@@ -11,18 +10,34 @@ export const ArticleDetails = ({
 }) => {
   useEffect(() => {
     setVisualState();
+    sendArticleIndexToAlan(params.index);
   }, []);
 
   const setVisualState = () => {
     console.log('inside set visual state');
-    AlanManager.setVisualState({screen: 'ArticleDetailscreen'});
+    AlanManager.setVisualState({screen: 'ArticleDetailScreen'});
+  };
+
+  const sendArticleIndexToAlan = index => {
+    // console.log("inside call project api ==>", index);
+    AlanManager.callProjectApi(
+      'setOpenedArticle',
+      {index: index},
+      (error, result) => {
+        if (error) {
+          console.error(error);
+        } else {
+          console.log(result);
+        }
+      },
+    );
   };
 
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text>Profile details</Text>
       <Text>data: {params.article.title}</Text>
-      <Text>number: {params.number}</Text>
+      <Text>number: {params.index}</Text>
       <Button
         title="Go back"
         onPress={() =>
