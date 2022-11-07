@@ -1,4 +1,11 @@
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  TouchableHighlight,
+} from 'react-native';
 import React from 'react';
 import {elevation} from '../../styles/styles';
 
@@ -10,12 +17,17 @@ export const CategoryItem = ({
   handlePress,
 }) => {
   return (
-    <TouchableOpacity onPress={handlePress}>
+    <TouchableOpacity
+      style={[
+        styles.buttonContainer,
+        id === 0 ? {marginLeft: 25, marginRight: 15} : {marginRight: 15},
+      ]}
+      onPress={handlePress}>
       <View
         style={[
           styles.container,
           elevation,
-          id === 0 ? {marginLeft: 25, marginRight: 15} : {marginRight: 15},
+
           active ? {backgroundColor: '#A5daff'} : {backgroundColor: '#fff'},
         ]}>
         <View style={styles.imageContainer}>
@@ -30,13 +42,21 @@ export const CategoryItem = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
+  buttonContainer: {
     width: 75,
     height: 100,
+    borderRadius: 15,
+    marginVertical: 15,
+    backgroundColor: '#fff',
+  },
+
+  container: {
+    width: '100%',
+    height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
-    marginVertical: 15,
+
     // marginHorizontal: 25,
   },
   elevation,
@@ -52,6 +72,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     marginBottom: 5,
+    // position: 'absolute',
+    // bottom: 0,
+    // left: 0,
   },
   header: {
     fontWeight: 'bold',

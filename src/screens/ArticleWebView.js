@@ -1,35 +1,41 @@
 import React, {useState} from 'react';
 import {useEffect} from 'react';
 import WebView from 'react-native-webview';
-import {NativeModules, ActivityIndicator, StyleSheet, View} from 'react-native';
-const {AlanManager} = NativeModules;
-
-export const ArticleWebView = ({
-  navigation: {navigate, goBack},
-  route: {params},
-}) => {
-  const [link] = useState(params.article.link);
-
+import {setAlanVisualState} from '../utils/AlanUtility';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import {useFocusEffect} from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {PopupMenu} from '../components/popupmenu/PopupMenu';
+export const ArticleWebView = ({navigation, route: {params}}) => {
   useEffect(() => {
-    setVisualState();
+    setAlanVisualState('ArticleWebViewScreen');
   }, []);
 
-  const setVisualState = () => {
-    // console.log('inside set visual state');
-    AlanManager.setVisualState({screen: 'ArticleWebViewScreen'});
-  };
+  useFocusEffect(
+    React.useCallback(() => {
+      navigation.setOptions({
+        title: 'Web View',
+        headerRight: () => <PopupMenu name="popup-menu2" />,
+        headerLeft: () => (
+          <Icon
+            name="ios-chevron-back"
+            size={26}
+            onPress={() => {
+              navigation.goBack();
+            }}
+            color="#222"
+          />
+        ),
+      });
+    }, [navigation]),
+  );
 
-  const LoadingIndicatorView = () => {
+  const ActivityIndicatorElement = () => {
     return (
       <ActivityIndicator
         color="#009b88"
         size="large"
-        style={{
-          flex: 1,
-          backgroundColor: '#fff',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
-        }}
+        style={styles.activityIndicatorStyle}
       />
     );
   };
@@ -41,11 +47,10 @@ export const ArticleWebView = ({
         originWhitelist={['*']}
         mediaPlaybackRequiresUserAction={true}
         allowsInlineMediaPlayback={true}
+        startInLoadingState={true}
+        renderLoading={() => <ActivityIndicatorElement />}
         onShouldStartLoadWithRequest={request => {
-          if (request.url === link) {
-            return true;
-          }
-          return false;
+          return true;
         }}
       />
     </View>
@@ -55,7 +60,22 @@ export const ArticleWebView = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
     // justifyContent: 'center',
     // alignItems: 'center',
+  },
+
+  activityIndicatorStyle: {
+    // flex: 1,
+    position: 'absolute',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    justifyContent: 'center',
   },
 });

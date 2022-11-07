@@ -6,6 +6,7 @@ export const useStore = create(set => ({
     id: 0,
     header: 'all',
   },
+  intent: 'defaultSearch',
 
   setKeyword: keyword =>
     set(state => ({
@@ -17,5 +18,11 @@ export const useStore = create(set => ({
     set(state => ({
       ...state,
       activeCategory,
+    })),
+
+  setIntent: intent =>
+    set(state => ({
+      ...state,
+      intent: intent,
     })),
 }));

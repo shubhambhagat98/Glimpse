@@ -8,6 +8,7 @@ export const CategoryList = ({fetchNewsData}) => {
   const activeCategory = useStore(state => state.activeCategory);
   const setActiveCategory = useStore(state => state.setActiveCategory);
   const setKeyword = useStore(state => state.setKeyword);
+  const setIntent = useStore(state => state.setIntent);
 
   const categoryListRef = useRef(null);
 
@@ -38,11 +39,13 @@ export const CategoryList = ({fetchNewsData}) => {
       paramObj = {
         when: '24h',
       };
+      setIntent('defaultSearch');
     } else {
       paramObj = {
         when: '24h',
         topic: `${activeCategory.header}`,
       };
+      setIntent('searchByCategory');
     }
 
     let url = '/latest_headlines';
@@ -84,7 +87,7 @@ export const CategoryList = ({fetchNewsData}) => {
 
 const styles = StyleSheet.create({
   categoryList: {
-    height: '22.5%',
+    // height: '22.5%',
     flexGrow: 0,
     // backgroundColor: '#fff',
   },

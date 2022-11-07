@@ -7,28 +7,31 @@ import {HomeScreen} from './src/screens/HomeScreen';
 import {ArticleDetails} from './src/screens/ArticleDetails';
 import {ArticleWebView} from './src/screens/ArticleWebView';
 import {ALAN_KEY} from '@env';
+import {MenuProvider} from 'react-native-popup-menu';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
   return (
-    <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: '#fff',
-          },
+    <MenuProvider>
+      <NavigationContainer ref={navigationRef}>
+        <Stack.Navigator
+          initialRouteName="Home"
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: '#fff',
+            },
 
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="ArticleDetails" component={ArticleDetails} />
-        <Stack.Screen name="ArticleWebView" component={ArticleWebView} />
-      </Stack.Navigator>
-      <AlanView projectid={ALAN_KEY} />
-    </NavigationContainer>
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="ArticleDetails" component={ArticleDetails} />
+          <Stack.Screen name="ArticleWebView" component={ArticleWebView} />
+        </Stack.Navigator>
+        <AlanView projectid={ALAN_KEY} />
+      </NavigationContainer>
+    </MenuProvider>
   );
 };
 

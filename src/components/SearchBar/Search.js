@@ -1,42 +1,21 @@
 import {StyleSheet, Text, View, TextInput} from 'react-native';
-import React, {useRef} from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React, {useRef, forwardRef, useEffect} from 'react';
+import SearchIcon from 'react-native-vector-icons/FontAwesome';
+import {Keyboard} from 'react-native';
 import {elevation} from '../../styles/styles';
 import {useStore} from '../../store/Store';
-import {Categories} from '../categories/Categories';
-import {Sources} from './Sources';
 
-const initialCategory = {
-  id: 0,
-  header: 'all',
-};
+import {
+  initialCategory,
+  getMatchedCategory,
+  getMatchedSource,
+} from '../../utils/FilterUtility';
 
-const getMatchedCategory = input => {
-  return (
-    Categories.find(c => c.header.toLowerCase() === input.toLowerCase()) || null
-  );
-};
-
-const getSourceIndex = input => {
-  const newInput = input.toLowerCase().replace(/ /g, '');
-  return Sources.findIndex(s => s.toLowerCase().split('.')[0] === newInput);
-};
-
-const getMatchedSource = input => {
-  const index = getSourceIndex(input);
-  if (index === -1) {
-    return null;
-  } else {
-    return Sources[index];
-  }
-};
-
-export const Search = ({fetchNewsData}) => {
+export const Search = forwardRef(({fetchNewsData}, ref) => {
   const keyword = useStore(state => state.keyword);
   const setKeyword = useStore(state => state.setKeyword);
   const setActiveCategory = useStore(state => state.setActiveCategory);
-
-  const inputRef = useRef();
+  const setIntent = useStore(state => state.setIntent);
 
   const searchNewshandler = () => {
     if (!keyword) {
@@ -44,19 +23,28 @@ export const Search = ({fetchNewsData}) => {
       return;
     }
 
-    inputRef.current.clear();
-
     const matchedCategory = getMatchedCategory(keyword);
     if (matchedCategory !== null) {
       setActiveCategory({
         id: matchedCategory.id,
         header: matchedCategory.header,
       });
-      console.log('search by category'); // search by category
-      let paramObj = {
-        when: '24h',
-        topic: `${matchedCategory.header.toLowerCase()}`,
-      };
+      // console.log('search by category'); // search by category
+
+      let paramObj;
+      if (matchedCategory.header.toLowerCase() === 'all') {
+        paramObj = {
+          when: '24h',
+        };
+        setIntent('defaultSearch');
+      } else {
+        paramObj = {
+          when: '24h',
+          topic: `${matchedCategory.header.toLowerCase()}`,
+        };
+        setIntent('searchByCategory');
+      }
+
       let url = '/latest_headlines';
       fetchNewsData(url, paramObj);
     } else {
@@ -64,48 +52,56 @@ export const Search = ({fetchNewsData}) => {
 
       if (matchedSource !== null) {
         setActiveCategory(initialCategory);
-        console.log('Macthed Sources: ', matchedSource);
-        console.log('search by source'); // search by source
+
+        // console.log('Macthed Sources: ', matchedSource);
+        // console.log('search by source'); // search by source
         let paramObj = {
           when: '24h',
           sources: `${matchedSource}`,
         };
         let url = '/latest_headlines';
+        setIntent('searchBySource');
+        // setKeyword(matchedSource);
         fetchNewsData(url, paramObj);
       } else {
-        console.log('search by keyword'); //search by keyword
         setActiveCategory(initialCategory);
         let paramObj = {
           q: `"${keyword}"`,
         };
         let url = '/search';
+        setIntent('searchByKeyword');
         fetchNewsData(url, paramObj);
       }
     }
+
+    // console.log('clearing input');
+    ref.current.clear();
+    // Keyboard.dismiss();
   };
 
   return (
     <View style={[styles.container, styles.elevation]}>
       <TextInput
-        ref={inputRef}
+        ref={ref}
         autoCorrect={false}
         style={styles.input}
         placeholder="Keywords..."
+        placeholderTextColor="#bbb"
         onChangeText={text => {
           setKeyword(text);
         }}
         onEndEditing={searchNewshandler}
         value={keyword}
       />
-      <Icon onPress={searchNewshandler} name="search" size={25} />
+      <SearchIcon onPress={searchNewshandler} name="search" size={25} />
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginTop: 5,
+    marginTop: 15,
     marginHorizontal: 25, //20
     padding: 15,
     justifyContent: 'space-between',
