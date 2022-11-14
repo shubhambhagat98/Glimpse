@@ -3,15 +3,16 @@ import React, {useEffect, useState} from 'react';
 import {useStore} from '../../store/Store';
 
 export const NewsHeader = () => {
+  const [headerText, setHeaderText] = useState('');
   const intent = useStore(state => state.intent);
   const keyword = useStore(state => state.keyword);
   const activeCategory = useStore(state => state.activeCategory);
 
-  const [headerText, setHeaderText] = useState('');
-
   useEffect(() => {
     generateHeaderText();
-  }, [intent]);
+  }, [intent, activeCategory]);
+
+  useEffect(() => {}, [headerText]);
 
   const generateHeaderText = () => {
     if (intent === 'defaultSearch') {

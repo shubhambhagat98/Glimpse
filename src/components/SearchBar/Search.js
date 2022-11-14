@@ -76,7 +76,7 @@ export const Search = forwardRef(({fetchNewsData}, ref) => {
 
     // console.log('clearing input');
     ref.current.clear();
-    // Keyboard.dismiss();
+    Keyboard.dismiss();
   };
 
   return (
@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 25, //20
     padding: 15,
     justifyContent: 'space-between',
+    alignItems: 'center',
     borderRadius: 40,
     backgroundColor: '#fff',
   },

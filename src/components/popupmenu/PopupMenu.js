@@ -19,17 +19,26 @@ export const PopupMenu = ({menuName}) => {
         customStyles={{
           optionsContainer: {
             borderRadius: 10,
-            width: 175,
+            width: 200,
           },
         }}>
-        <PopupMenuItem text="FAQs" iconName="ios-help-circle-outline" />
+        <PopupMenuItem
+          text="FAQs"
+          iconName="ios-help-circle-outline"
+          route="Demo"
+        />
         <Divider />
         <PopupMenuItem
           text="About us"
           iconName="ios-information-circle-outline"
+          route="Demo"
         />
         <Divider />
-        <PopupMenuItem text="Alan Walkthrough" iconName="ios-layers-outline" />
+        <PopupMenuItem
+          text="Alan Walkthrough"
+          iconName="ios-layers-outline"
+          route="AlanWalkthrough"
+        />
       </MenuOptions>
     </Menu>
   );

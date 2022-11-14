@@ -7,6 +7,10 @@ export const setAlanVisualState = screenName => {
   AlanManager.setVisualState({screen: `${screenName}`});
 };
 
+export const activateAlan = () => {
+  AlanManager.activate();
+};
+
 export const deactivateAlan = () => {
   AlanManager.deactivate();
 };

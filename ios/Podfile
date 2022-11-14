@@ -26,6 +26,9 @@ target 'Glimpse' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-Microphone', :path => "#{permissions_path}/Microphone"
+  
   target 'GlimpseTests' do
     inherit! :complete
     # Pods for testing

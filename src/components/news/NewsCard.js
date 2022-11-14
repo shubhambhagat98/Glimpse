@@ -14,9 +14,7 @@ import {NewsIndex} from './NewsIndex';
 import {NativeModules} from 'react-native';
 const {AlanManager} = NativeModules;
 
-const NEWS_IMAGE = {
-  uri: 'https://media-cldnry.s-nbcnews.com/image/upload/newscms/2019_01/2705191/nbc-social-default.png',
-};
+const NEWS_IMAGE = require('../../assets/images/news-demo.png');
 
 export const NewsCard = ({article, index, activeArticle, isAlanReading}) => {
   const [focusColor, setFocusColor] = useState('#fff');

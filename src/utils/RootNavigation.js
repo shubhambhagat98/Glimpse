@@ -13,3 +13,9 @@ export const goBack = () => {
     navigationRef.goBack();
   }
 };
+
+export const replace = route => {
+  if (navigationRef.isReady()) {
+    navigationRef.replace(route);
+  }
+};

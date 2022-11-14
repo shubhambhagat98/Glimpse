@@ -2,25 +2,24 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   ScrollView,
   Image,
   StatusBar,
   ImageBackground,
+  TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import {useEffect} from 'react';
-import {PopupMenu} from '../components/popupmenu/PopupMenu';
+
 import {setAlanVisualState, sendArticleIndexToAlan} from '../utils/AlanUtility';
 import {openArticleWebView} from '../utils/NavigationUtility';
 import {useFocusEffect} from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Ionicons';
+
 import {Divider} from '../components/popupmenu/Divider';
 import {BackButton} from '../components/buttons/BackButton';
 import {MenuButton} from '../components/buttons/MenuButton';
-const NEWS_IMAGE = {
-  uri: 'https://media-cldnry.s-nbcnews.com/image/upload/newscms/2019_01/2705191/nbc-social-default.png',
-};
+
+const NEWS_IMAGE = require('../assets/images/news-demo.png');
 
 export const ArticleDetails = ({
   navigation,
@@ -45,7 +44,7 @@ export const ArticleDetails = ({
     <View style={styles.container}>
       <BackButton />
       <MenuButton />
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.imageContainer}>
           <ImageBackground source={NEWS_IMAGE} resizeMode="cover">
             <Image
@@ -81,10 +80,11 @@ export const ArticleDetails = ({
               {article.rights !== null ? article.rights : article.author}
             </Text>
           </View>
-          <Button
-            title="web view"
-            onPress={() => openArticleWebView(index, article)}
-          />
+          <TouchableOpacity
+            style={styles.openbutton}
+            onPress={() => openArticleWebView(index, article)}>
+            <Text style={styles.buttonText}>Open webpage</Text>
+          </TouchableOpacity>
         </View>
 
         <StatusBar hidden />
@@ -117,9 +117,13 @@ const styles = StyleSheet.create({
   },
 
   infoContainer: {
-    marginTop: 20,
+    backgroundColor: '#fbfbfe',
+    // marginTop: -30,
     marginBottom: 40,
-    marginHorizontal: 20,
+    paddingTop: 20,
+    paddingHorizontal: 20,
+    // borderTopLeftRadius: 30,
+    // borderTopRightRadius: 30,
   },
 
   title: {
@@ -138,5 +142,21 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     fontSize: 15,
     lineHeight: 20,
+  },
+
+  openbutton: {
+    alignSelf: 'center',
+    marginVertical: 30,
+    borderRadius: 50,
+    alignItems: 'center',
+    backgroundColor: '#005693',
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+  },
+
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '500',
   },
 });
