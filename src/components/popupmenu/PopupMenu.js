@@ -13,7 +13,11 @@ export const PopupMenu = ({menuName}) => {
   return (
     <Menu name={menuName}>
       <MenuTrigger>
-        <Icon name="ellipsis-vertical" size={20} />
+        <Icon
+          name="ellipsis-vertical"
+          size={20}
+          style={{paddingHorizontal: 10, paddingVertical: 5}}
+        />
       </MenuTrigger>
       <MenuOptions
         customStyles={{

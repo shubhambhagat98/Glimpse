@@ -33,12 +33,12 @@ import {
 } from '../utils/AlanUtility';
 import {request, check, PERMISSIONS, RESULTS} from 'react-native-permissions';
 
-// LogBox.ignoreLogs([
-//   'Warn: Task orphaned for request',
-//   'Warn: Did not receive response to shouldStartLoad in time, defaulting to YES',
-// ]);
+LogBox.ignoreLogs([
+  'Warn: Task orphaned for request',
+  'Warn: Did not receive response to shouldStartLoad in time, defaulting to YES',
+]);
 
-// LogBox.ignoreAllLogs();
+LogBox.ignoreAllLogs();
 
 const {AlanEventEmitter} = NativeModules;
 const alanEventEmitter = new NativeEventEmitter(AlanEventEmitter);
