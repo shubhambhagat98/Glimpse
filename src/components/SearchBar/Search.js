@@ -85,7 +85,7 @@ export const Search = forwardRef(({fetchNewsData}, ref) => {
         ref={ref}
         autoCorrect={false}
         style={styles.input}
-        placeholder="Keywords..."
+        placeholder="Keywords or source..."
         placeholderTextColor="#bbb"
         onChangeText={text => {
           setKeyword(text);

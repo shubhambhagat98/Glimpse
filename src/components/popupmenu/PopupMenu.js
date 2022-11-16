@@ -16,7 +16,7 @@ export const PopupMenu = ({menuName}) => {
         <Icon
           name="ellipsis-vertical"
           size={20}
-          style={{paddingHorizontal: 10, paddingVertical: 5}}
+          // style={{paddingHorizontal: 10, paddingVertical: 5}}
         />
       </MenuTrigger>
       <MenuOptions
