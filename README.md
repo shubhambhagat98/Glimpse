@@ -106,7 +106,7 @@ https://user-images.githubusercontent.com/53030762/202789954-28da7ce2-6b30-496a-
 - Install Android studio and Android emulator if building for android device
 
 # Alan Studio Setup
-- Signup and create a project on Alan AI platform
+- Signup and create a project on [Alan AI](https://alan.app/) platform
 - Import the voice script from the folder "alan-voice-script" in this repo into your newly created project
 - Add your Alan Key in the voice script on line number 5
 - Test the voice-script in debug console on Alan Studio
