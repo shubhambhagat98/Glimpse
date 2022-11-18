@@ -99,12 +99,26 @@ https://user-images.githubusercontent.com/53030762/202789954-28da7ce2-6b30-496a-
 </p>
 
 
-# How to run
-
-- Clone this repo
+# Environment Setup
 - Install Node and React
 - Follow the [Installation Instructions](https://reactnative.dev/docs/environment-setup) to install React Native and React Native CLI
 - Update xcode if running on Mac
 - Install Android studio and Android emulator if building for android device
-- Follow the instructions [here](https://github.com/aiba/react-native-m1) to prevent/debug build errors if running on Mac
+
+# Alan Studio Setup
+- Signup and create a project on Alan AI platform
+- Import the voice script from the folder "alan-voice-script" in this repo into your newly created project
+- Add your Alan Key in the voice script on line number 5
+- Test the voice-script in debug console on Alan Studio
+
+# How to run
+
+- Clone this repo
+- Create account on [NewsCatcher API](https://newscatcherapi.com/)
+- Create a .env file in the app's roor directory with following keys - ALAN_KEY and NEWS_API_KEY
+- Add your actual Alan Key and NewsCatcher API key to the .env file
+- Run `npm i` to install node dependencies.
+- If building project for IOS
+  - Run `cd ios` and then  `pod install` to install pod dependencies. Run `cd ..` to go back to root directory of the app
+  - Follow the instructions [here](https://github.com/aiba/react-native-m1) to prevent/debug build 
 - Run the app from terminal with `npm run ios` or `npm run android`
