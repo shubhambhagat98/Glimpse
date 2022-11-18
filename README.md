@@ -42,7 +42,7 @@ https://user-images.githubusercontent.com/53030762/202789954-28da7ce2-6b30-496a-
 
 </div>
 
-   By default, the home page will show news article for the current day. To fetch new articles, the user can ask Alan voice assistant and input a voice query as show in the screen-2 above. \When an article’s headline is being read, it will be indicated using a bottom border below that article and audio gif on article image.
+   By default, the home page will show news article for the current day. To fetch new articles, the user can ask Alan voice assistant and input a voice query as show in the screen-2 above. When an article’s headline is being read, it will be indicated using a bottom border below that article and audio gif on article image.
 
 <br/>
 
