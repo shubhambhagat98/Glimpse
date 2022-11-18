@@ -3,13 +3,14 @@
 
 
 
-<img src="https://user-images.githubusercontent.com/53030762/202789415-23dadc30-fc9b-42b2-bbde-93a880ef85e0.png" align="right" height="400" />
 
+<img src="https://user-images.githubusercontent.com/53030762/202796850-30063d39-6323-4544-a19f-0f0a74af8f11.png" align="right" height="420"/>
+  
 ### Project Proposal
 
-Convenience has evolved into a new societal standard. We are accustomed to obtaining information with a few clicks. Today's readers demand outstanding material in bite-sized chunks. They don't want to have to navigate a complicated website to find it. People want to access relevant information quickly and easily. When it comes to smartphones, simple actions like a swipe-up help you digest a lot of information. What if we could eliminate this activity entirely and instead provide a method for retrieving information and reading it to the user? What if we could reduce the amount of clicks necessary to find information in the first place?
+Voice-assistive technology has made it effortless for us to fetch information. We enjoy the convenience of obtaining desired information and performing tasks without putting in much effort. So why not integrate this “convenience” in obtaining productive information, say news articles?
 
-This prompted me to devise a method for creating an AI-powered voice-activated News App – **Glimpse**. The app would enable users to search for and get news articles based on various categories, search terms, and news sources. It would even read the headlines of the retrieved articles and auto-scroll the screen to display and read subsequent articles. The reader can also issue a voice command to open an article allowing him to browse news without even using the device manually.
+**Glimpse** is an AI-powered voice-activated News App. The app would enable users to search for and get news articles based on various categories, search terms, and news sources. It would even read the headlines of the retrieved articles and auto-scroll the screen to display and read subsequent articles. The reader can also issue a voice command to open an article allowing him to browse news without even using the device manually.
 
 ### Tools and Technologies
 
@@ -26,57 +27,73 @@ This prompted me to devise a method for creating an AI-powered voice-activated N
 
 ### Demo
 
-
 https://user-images.githubusercontent.com/53030762/202789954-28da7ce2-6b30-496a-a2cd-3b39b788aa15.mp4
 
 
 
 
-### Planned Output
+### Output Screenshots
 
-1. Landing screen (splash screen) and initial guidelines
+1. Home Page and fetching news articles
 
-<p align="center">
-   <img src="https://user-images.githubusercontent.com/53030762/195752694-0e78905a-afb9-4965-8135-4ccc7a1d1904.png" style="width:70%;" />
-</p>
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/53030762/202797016-cb42e104-5510-4aa9-839e-80a1119ffe26.png" align="center" style="width:90%;"/>
+  
 
+</div>
 
-
-
-   When the user opens the app for first time, there will be a “Get Started” button on the splash screen. Clicking on that button will guide the user through some tutorial examples on how to use the voice- activated search.
-
-<br/>
-
-2. Home Page and fetching news articles
-
-<p align="center">
-   <img src="https://user-images.githubusercontent.com/53030762/195752858-996e6d95-93c2-4489-8d10-d790740bbfeb.png" style="width:70%;" />
-</p>
-
-
-
-   By default, the home page will show news article for the current day. To fetch new articles, the user can click on the microphone icon and input a voice query as show in the screen-2 above. After that, the voice-assistant will fetch the news article and ask the user if he wants the headlines to be read aloud. If the user responds yes, the voice assistant will start reading the headlines of the articles one by one for a count of 5 articles. After that, the voice assistant will ask the user if he wants the reading to continue or not. If the user responds yes, the voice-assistant will auto scroll the article list and continue reading. When an article’s headline is being read, it will be indicated using a progress bar below that article.
+   By default, the home page will show news article for the current day. To fetch new articles, the user can ask Alan voice assistant and input a voice query as show in the screen-2 above. \When an article’s headline is being read, it will be indicated using a bottom border below that article and audio gif on article image.
 
 <br/>
 
-3. Opening an article
+2. Search by keyword, source or category
 
 
 <p align="center">
-   <img src="https://user-images.githubusercontent.com/53030762/195752953-dc9c9e4f-dca8-475d-a74a-43e711646caf.png" style="width:50%;" />
+   <img src="https://user-images.githubusercontent.com/53030762/202797094-bfe4aa73-6199-4b7e-b6ae-9f76fc5e6dc6.png" style="width:90%;" />
 </p>
 
-
-
-   Each article fetched is associated with a number that acts an as index. The user can use the AI-powered voice-assistant and issue a command as shown in the figure above to open a particular article. On successful processing of the query the complete details of the article will be displayed in the new screen.
+   Users can filter and search articles based on keywords, categories or even news source. Keywords and news source need to be typed on search field. Category can be selected from horizontal flatlist of categories.
 
 <br/>
 
-4. Error Screen if internet not available
+3. Article Summary Screen and Article Web View
 
 <p align="center">
-   <img src="https://user-images.githubusercontent.com/53030762/195753250-d8192d36-f3d9-4776-91f6-7597996cb475.png" style="width:20%;" />
+   <img src="https://user-images.githubusercontent.com/53030762/202797181-187bf989-062d-48d2-b8ce-5afe41c4f59c.png" style="width:90%;" />
 </p>
 
 
-   An error screen will be displayed as in the above figure if there is no internet connection to the user’s smartphone.
+
+4. Error Screen if news articles not found
+
+<p align="center">
+   <img src="https://user-images.githubusercontent.com/53030762/202797230-95650a83-ec23-4b5a-b33a-2e43eb2f3310.png" style="width:90%;" />
+</p>
+
+
+
+
+   An error screen will be displayed as in the above figure if there are no news articles for the user's input.
+
+
+5. Alan Walkthrough
+
+<p align="center">
+   <img src="https://user-images.githubusercontent.com/53030762/202797344-566774b7-7d56-4811-a8d6-922c04d47bd7.png" style="width:90%;" />
+</p>
+
+
+
+
+
+<p align="center">
+   <img src="https://user-images.githubusercontent.com/53030762/202797387-7cfbf064-a796-4d44-8a1b-1046729f9860.png" style="width:90%;" />
+</p>
+
+
+
+
+<p align="center">
+   <img src="https://user-images.githubusercontent.com/53030762/202797416-7751d2b2-3bf0-47c9-a34e-b135a393e038.png" style="width:90%;" />
+</p>
