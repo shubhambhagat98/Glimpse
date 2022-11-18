@@ -1,4 +1,11 @@
-## Project Proposal
+## Glimpse - An AI-powered voice-assisted news application
+
+
+
+
+<img src="https://user-images.githubusercontent.com/53030762/202789415-23dadc30-fc9b-42b2-bbde-93a880ef85e0.png" align="right" height="400" />
+
+### Project Proposal
 
 Convenience has evolved into a new societal standard. We are accustomed to obtaining information with a few clicks. Today's readers demand outstanding material in bite-sized chunks. They don't want to have to navigate a complicated website to find it. People want to access relevant information quickly and easily. When it comes to smartphones, simple actions like a swipe-up help you digest a lot of information. What if we could eliminate this activity entirely and instead provide a method for retrieving information and reading it to the user? What if we could reduce the amount of clicks necessary to find information in the first place?
 
@@ -9,12 +16,21 @@ This prompted me to devise a method for creating an AI-powered voice-activated N
 1. **React Native** - React Native is great for mobile apps. It provides a slick, smooth and responsive user interface, while significantly reducing load time. It's also much faster and cheaper to build apps in React Native as opposed to building native ones, without the need to compromise on quality and functionality.
    <br/>
 
-2. **Alan AI** - A comprehensive Voice AI Platform to create and manage intelligent and contextual in-app voice assistants. It offers Support for multi-modal, human-like interactions with your app as well as Contextual awareness, superior voice and language processing.
+2. **Alan AI** - A Conversational AI platform to build, deploy and manage intelligent and contextual in-app voice assistants. It offers Support for multi-modal, human-like interactions with your app as well as Contextual awareness, superior voice and language processing.
    Link: https://alan.app/
    <br/>
 
 3. **NewsCatcherAPI** - This API allows users to Locate articles and breaking news headlines from news sources and blogs across the web.
    Link: https://newscatcherapi.com/
+
+
+### Demo
+
+
+https://user-images.githubusercontent.com/53030762/202789954-28da7ce2-6b30-496a-a2cd-3b39b788aa15.mp4
+
+
+
 
 ### Planned Output
 
