@@ -97,3 +97,14 @@ https://user-images.githubusercontent.com/53030762/202789954-28da7ce2-6b30-496a-
 <p align="center">
    <img src="https://user-images.githubusercontent.com/53030762/202797416-7751d2b2-3bf0-47c9-a34e-b135a393e038.png" style="width:90%;" />
 </p>
+
+
+# How to run
+
+- Clone this repo
+- Install Node and React
+- Follow the [Installation Instructions](https://reactnative.dev/docs/environment-setup) to install React Native and React Native CLI
+- Update xcode if running on Mac
+- Install Android studio and Android emulator if building for android device
+- Follow the instructions [here](https://github.com/aiba/react-native-m1) to prevent/debug build errors if running on Mac
+- Run the app from terminal with `npm run ios` or `npm run android`
